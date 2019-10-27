@@ -1,6 +1,10 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
+typedef struct options{
+    char nome[8];
+} options;
+
 typedef struct image{
     char nome[8];
     int valores[2];
