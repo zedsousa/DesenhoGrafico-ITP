@@ -31,6 +31,11 @@ typedef struct polygon{
     
 } polygon;
 
+typedef struct rect{
+    int x;
+    int y;
+} rect;
+
 typedef struct circle{
     point P;
     int radius;
