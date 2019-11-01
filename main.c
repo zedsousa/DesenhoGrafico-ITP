@@ -103,6 +103,12 @@ void outputOptions(FILE *arq){
 			}
 			//makePolygon(lengthPoints,Points);
 		}
+		if(strcmp(nome,"rect")==0){
+			int x,y;
+			fscanf(arq,"%d %d \n",&x,&y);
+			//rect(x,y);
+			
+		}
 		if(strcmp(nome,"save")==0){
 			fscanf(arq,"%s\n",filename);
 			//Arq = img.ppm
