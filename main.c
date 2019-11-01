@@ -49,7 +49,7 @@ void gera_ppm(){
         for (i = 0; i < largura; ++i)
         {
 			if(i==j){
-				
+				//Substituir por fprintf
 				fwrite(preto, 1, 3, fp);
 			}else{
 				fwrite(branco, 1, 3, fp);
