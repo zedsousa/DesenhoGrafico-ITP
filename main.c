@@ -8,9 +8,10 @@ void le_arquivo();
 void gera_ppm();
 void outputOptions(FILE *arq);
 
+
 void main() {
+	
 	le_arquivo();
-	gera_ppm();
 }
 
 void le_arquivo(){
@@ -25,47 +26,42 @@ void le_arquivo(){
 	outputOptions(arq);
 	fclose(arq);
 }
-void gera_ppm(){
-	
-    const int largura = 100, altura = 100;
-    int i, j;
 
-	static unsigned char branco[3];
-        branco[0] = 255;  /* red */
-        branco[1] = 255;  /* green */
-        branco[2] = 255;  /* blue */
-	static unsigned char preto[3];
-        preto[0] = 0;  /* red */
-        preto[1] = 0;  /* green */
-        preto[2] = 0;  /* blue */	
+
+void gera_ppm(image I, clear C, char *filename){
+	
+    int width = I.x;
+	int height = I.y;
+    int i, j;	
     
-    FILE *fp = fopen("image.ppm", "wb");
+    FILE *fp = fopen(filename, "wb");
     
     
-    fprintf(fp, "P6\n%d %d\n255\n", largura, altura);
+    fprintf(fp, "P3\n%d %d\n255\n", width, height);
     
-    for (j = 0; j < altura; ++j)
+    for (j = 0; j < height; ++j)
     {
-        for (i = 0; i < largura; ++i)
+        for (i = 0; i < width; ++i)
         {
-			if(i==j){
-				//Substituir por fprintf
-				fwrite(preto, 1, 3, fp);
-			}else{
-				fwrite(branco, 1, 3, fp);
-			}
+			
+			fprintf( fp, "%d %d %d\n", C.Color.r, C.Color.g, C.Color.b);
+			
             }
     }
 	fclose(fp);//Salva o arquivo
 }
 void outputOptions(FILE *arq){
 	char nome[10];
+	image Image;
+	clear Clear;
+	char filename[30];
 	while (!feof(arq)){
 		fscanf(arq,"%s",nome);
 		if(strcmp(nome,"image")==0){
-			point Point;
-			fscanf(arq,"%d %d \n",&Point.x,&Point.y);
-			//image(Point);
+			
+			fscanf(arq,"%d %d \n",&Image.x,&Image.y);
+			
+			
 		}
 		if(strcmp(nome,"fill")==0){
 			point Point;
@@ -83,9 +79,9 @@ void outputOptions(FILE *arq){
 			//color(Color);
 		}
 		if(strcmp(nome,"clear")==0){
-			color Color;
-			fscanf(arq,"%d %d %d\n",&Color.r,&Color.g,&Color.b);
-			//color(Color);
+			
+			fscanf(arq,"%d %d %d\n",&Clear.Color.r,&Clear.Color.g,&Clear.Color.b);
+			//clear(Clear);
 		}
 		if(strcmp(nome,"circle")==0){
 			point Point;
@@ -108,8 +104,9 @@ void outputOptions(FILE *arq){
 			//makePolygon(lengthPoints,Points);
 		}
 		if(strcmp(nome,"save")==0){
+			fscanf(arq,"%s\n",filename);
 			//Arq = img.ppm
 			//save(FILe *Arq);
 		}
-	}
+	}gera_ppm(Image, Clear, filename);
 }

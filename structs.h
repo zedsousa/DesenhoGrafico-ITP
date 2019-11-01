@@ -14,7 +14,8 @@ typedef struct point{
 }point;
 
 typedef struct image{
-    point P;
+    int x;
+    int y;
 } image;
 
 typedef struct clear{
@@ -27,7 +28,7 @@ typedef struct line{
 
 typedef struct polygon{
     int n; 
-    point P[n]; 
+    
 } polygon;
 
 typedef struct circle{
@@ -42,7 +43,7 @@ typedef struct fill{
 } fill;
 
 typedef struct save{
-    FILE arq;
+    
 } save;
 
 #endif
