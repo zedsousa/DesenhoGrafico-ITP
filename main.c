@@ -55,13 +55,25 @@ void outputOptions(FILE *arq){
 	image Image;
 	clear Clear;
 	char filename[30];
+	color *MatrizAux;
+    	int i,heightMatrizAux,widthMatrizAux;
+	
 	while (!feof(arq)){
 		fscanf(arq,"%s",nome);
 		if(strcmp(nome,"image")==0){
-			
-			fscanf(arq,"%d %d \n",&Image.x,&Image.y);
-			
-			
+			    fscanf(arq,"%d %d \n",&Image.x,&Image.y);
+			    widthMatrizAux=Image.x;//esta variavel serve pra poder liberar a memória fora deste IF
+			    heightMatrizAux=Image.y;
+
+			    //alocação dinâmica da matrizAux
+			    MatrizAux = (color **) calloc (Image.x, sizeof(color *));	
+			    if (MatrizAux == NULL) {
+				printf ("** Erro: Memoria Insuficiente **");
+				return (NULL);
+			    }
+			    for ( i = 0; i < Image.x; i++ ) {
+				MatrizAux[i] = (color*) calloc (Image.y, sizeof(color));
+			    }
 		}
 		if(strcmp(nome,"fill")==0){
 			point Point;
@@ -71,7 +83,7 @@ void outputOptions(FILE *arq){
 		if(strcmp(nome,"line")==0){
 			point Points[2];
 			fscanf(arq,"%d %d %d %d\n",&Points[0].x,&Points[0].y,&Points[1].x,&Points[1].y);
-			//line(Points);
+            		makeLine(Points[0],Points[1],widthMatrizAux,heightMatrizAux,C);
 		}
 		if(strcmp(nome,"color")==0){
 			color Color;
@@ -81,7 +93,7 @@ void outputOptions(FILE *arq){
 		if(strcmp(nome,"clear")==0){
 			
 			fscanf(arq,"%d %d %d\n",&Clear.Color.r,&Clear.Color.g,&Clear.Color.b);
-			//clear(Clear);
+			//clear(Clear,widthMatrizAux,heightMatrizAux,MatrizAux);
 		}
 		if(strcmp(nome,"circle")==0){
 			point Point;
@@ -101,18 +113,22 @@ void outputOptions(FILE *arq){
 					}					
 				}
 			}
-			//makePolygon(lengthPoints,Points);
+		    	makePolygon(lengthPoints,P,widthMatrizAux,heightMatrizAux,C);
 		}
 		if(strcmp(nome,"rect")==0){
-			int x,y;
-			fscanf(arq,"%d %d \n",&x,&y);
-			//rect(x,y);
-			
+            		point P;
+			int heigth,width;
+			fscanf(arq,"%d %d %d %d\n",&P.x,&P.y,&heigth,&width);
+			//rect(P,heigth,width);
 		}
 		if(strcmp(nome,"save")==0){
 			fscanf(arq,"%s\n",filename);
-			//Arq = img.ppm
 			//save(FILe *Arq);
+
+		    //libera a matriz da memória
+		    for (i=0; i<widthMatrizAux; i++) 
+			free (MatrizAux[i]);  
+		    free (MatrizAux);  
 		}
 	}gera_ppm(Image, Clear, filename);
 }
