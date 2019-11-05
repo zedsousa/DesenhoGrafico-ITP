@@ -5,13 +5,14 @@
 //default functions
 //são funções considerando as opções do exemplo lá 
 void makeImage(point P);
-int cleanImage(color C);
-int colorImage(color C);
-int makeLine(point *P); //point P[2]
-int makeCircle(point P,int radius);
-int makePolygon(int n); //point P[n]
-int makeRect(int x,int y);
-int fillForm(point P);
-int saveImage(FILE *arq);
+void cleanImage(color C);
+void colorImage(color C);
+void setPixel(int x,int y,int w,int h,color (*C)[w],color Color);
+void makeLine(point a,point b,int w,int h,color (*C)[w]);
+void makeCircle(point P,int radius);
+void makePolygon(int n,point *P,int w,int h,color (*C)[w]);
+void makeRect(Point p,int height,int width,int w,int h,color (*C)[w]);
+void fillForm(point P);
+void saveImage(FILE *arq);
 
 #endif
