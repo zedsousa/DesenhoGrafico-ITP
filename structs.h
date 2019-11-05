@@ -28,12 +28,13 @@ typedef struct line{
 
 typedef struct polygon{
     int n; 
-    
+    point *P;
 } polygon;
 
 typedef struct rect{
-    int x;
-    int y;
+    point P;
+    int height;
+    int width;
 } rect;
 
 typedef struct circle{
