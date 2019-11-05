@@ -29,7 +29,7 @@ void le_arquivo(){
 
 
 void gera_ppm(image I, clear C, char *filename){
-	
+//void gera_ppm(image I, char *filename,int w,int h,color (*C)[w]);
     int width = I.x;
 	int height = I.y;
     int i, j;	
