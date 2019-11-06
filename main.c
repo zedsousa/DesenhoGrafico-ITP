@@ -55,7 +55,7 @@ void outputOptions(FILE *arq){
 	image Image;
 	clear Clear;
 	char filename[30];
-	color *MatrizAux;
+	color **MatrizAux;
     	int i,heightMatrizAux,widthMatrizAux;
 	
 	while (!feof(arq)){
@@ -69,7 +69,6 @@ void outputOptions(FILE *arq){
 			    MatrizAux = (color **) calloc (Image.x, sizeof(color *));	
 			    if (MatrizAux == NULL) {
 				printf ("** Erro: Memoria Insuficiente **");
-				return (NULL);
 			    }
 			    for ( i = 0; i < Image.x; i++ ) {
 				MatrizAux[i] = (color*) calloc (Image.y, sizeof(color));
@@ -83,7 +82,7 @@ void outputOptions(FILE *arq){
 		if(strcmp(nome,"line")==0){
 			point Points[2];
 			fscanf(arq,"%d %d %d %d\n",&Points[0].x,&Points[0].y,&Points[1].x,&Points[1].y);
-            		makeLine(Points[0],Points[1],widthMatrizAux,heightMatrizAux,C);
+            		makeLine(Points[0],Points[1],widthMatrizAux,heightMatrizAux,MatrizAux);
 		}
 		if(strcmp(nome,"color")==0){
 			color Color;
@@ -113,7 +112,7 @@ void outputOptions(FILE *arq){
 					}					
 				}
 			}
-		    	makePolygon(lengthPoints,P,widthMatrizAux,heightMatrizAux,C);
+		    	makePolygon(lengthPoints,Points,widthMatrizAux,heightMatrizAux,C);
 		}
 		if(strcmp(nome,"rect")==0){
             		point P;
