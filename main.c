@@ -56,16 +56,10 @@ void outputOptions(FILE *arq){
 	clear Clear;
 	char filename[30];
 	color **MatrizAux;
-    	int i,heightMatrizAux,widthMatrizAux;
+    	int i,heightMatrizAux=0,widthMatrizAux=0;
 	
-	while (!feof(arq)){
-		fscanf(arq,"%s",nome);
-		if(strcmp(nome,"image")==0){
-			    fscanf(arq,"%d %d \n",&Image.x,&Image.y);
-			    widthMatrizAux=Image.x;//esta variavel serve pra poder liberar a memória fora deste IF
-			    heightMatrizAux=Image.y;
-
-			    //alocação dinâmica da matrizAux
+	if(heightMatrizAux!=0&&widthMatrizAux!=0){
+			   //alocação dinâmica da matrizAux
 			    MatrizAux = (color **) calloc (Image.x, sizeof(color *));	
 			    if (MatrizAux == NULL) {
 				printf ("** Erro: Memoria Insuficiente **");
@@ -73,6 +67,14 @@ void outputOptions(FILE *arq){
 			    for ( i = 0; i < Image.x; i++ ) {
 				MatrizAux[i] = (color*) calloc (Image.y, sizeof(color));
 			    }
+	}
+	
+	while (!feof(arq)){
+		fscanf(arq,"%s",nome);
+		if(strcmp(nome,"image")==0){
+			    fscanf(arq,"%d %d \n",&Image.x,&Image.y);
+			    widthMatrizAux=Image.x;//esta variavel serve pra poder liberar a memória fora deste IF
+			    heightMatrizAux=Image.y;    
 		}
 		if(strcmp(nome,"fill")==0){
 			point Point;
