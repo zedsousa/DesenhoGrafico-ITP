@@ -57,13 +57,13 @@ void makePolygon(int n,point *P,int w,int h,color (*C)[w]){
         auxP1=P[aux];
         auxP2=P[aux+1];
 
-        line(auxP1,auxP2,w,h,C);
+        makeLine(auxP1,auxP2,w,h,C);
         aux++;
 
         if(aux==(n-1)){//se o aux chegar ao penúltimo valor do vetor
             auxP1=P[0];
             auxP2=P[n-1];
-            line(auxP1,auxP2,w,h,C);
+            makeLine(auxP1,auxP2,w,h,C);
             break;
         }
     }while(aux!=(n-1));
