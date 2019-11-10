@@ -28,25 +28,7 @@ void le_arquivo(){
 }
 
 
-void gera_ppm(int x,int y, char *filename,color **c){
-    int width = x;
-	int height = y;
-    int i, j;	
-    
-    FILE *fp = fopen(filename, "wb");
-    
-    
-    fprintf(fp, "P3\n%d %d\n255\n", width, height);
-    
-    for (j = 0; j < width; ++j)
-    {
-        for (i = 0; i < height; ++i)
-        {
-			fprintf( fp, "%d %d %d\n", c[j][i].r, c[j][i].g, c[j][i].b);
-            }
-    }
-	fclose(fp);//Salva o arquivo
-}
+
 void outputOptions(FILE *arq){
 	char nome[10];
 	image Image;
@@ -118,9 +100,9 @@ void outputOptions(FILE *arq){
 		}
 		if(strcmp(nome,"save")==0){
 			fscanf(arq,"%s\n",filename);
-			//save(FILe *Arq);
+			saveImage(widthMatrizAux,heightMatrizAux, filename,MatrizAux);
 		}
-	}gera_ppm(widthMatrizAux,heightMatrizAux, filename,MatrizAux);
+	}
 	//libera a matriz da memória
 		    for (i=0; i<widthMatrizAux; i++) 
 				free (MatrizAux[i]);  

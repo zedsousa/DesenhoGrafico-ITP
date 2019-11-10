@@ -13,6 +13,6 @@ void makeCircle(point P,int radius);
 void makePolygon(int n,point *P,int w,int h,color** C);
 void makeRect(point p,int width,int height, color** C);
 void fillForm(point P);
-void saveImage(FILE *arq);
+void saveImage(int x,int y, char *filename,color **c);
 
 #endif

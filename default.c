@@ -75,10 +75,9 @@ void makePolygon(int n,point *P,int w,int h,color** C){
 }
 
 void makeRect(point a,int width,int height, color** C){
-  
     int i;
-    
     point Points[4];
+
     Points[0] = a;
     Points[1].x = a.x+width;
     Points[1].y = a.y;
@@ -92,7 +91,6 @@ void makeRect(point a,int width,int height, color** C){
         else
             makeLine(Points[3],Points[0],C);
     }
-    
 }
 
 
@@ -108,4 +106,25 @@ color **makeImage(int width, int height){
 	    MatrizAux[i] = (color*) calloc (height, sizeof(color));
 	}
     return(MatrizAux);
+}
+
+void saveImage(int x,int y, char *filename,color **c){
+    int width = x;
+	int height = y;
+    int i, j;	
+    
+    FILE *fp = fopen(filename, "wb");
+    
+    
+    fprintf(fp, "P3\n%d %d\n255\n", width, height);
+    
+    for (j = 0; j < width; ++j)
+    {
+        for (i = 0; i < height; ++i)
+        {
+			fprintf( fp, "%d %d %d\n", c[j][i].r, c[j][i].g, c[j][i].b);
+            }
+    }
+	fclose(fp);//Salva o arquivo
+    
 }
