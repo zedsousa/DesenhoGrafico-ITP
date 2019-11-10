@@ -63,14 +63,8 @@ void outputOptions(FILE *arq){
 			    widthMatrizAux=Image.x;//esta variavel serve pra poder liberar a memória fora deste IF
 			    heightMatrizAux=Image.y;    
 				
-				//alocação dinâmica da matrizAux
-			    MatrizAux = (color **) calloc (Image.x, sizeof(color *));
-			    if (MatrizAux == NULL) {
-				printf ("** Erro: Memoria Insuficiente **");
-			    }
-			    for ( i = 0; i < Image.x; i++ ) {
-				MatrizAux[i] = (color*) calloc (Image.y, sizeof(color));
-			    }
+				MatrizAux=makeImage(widthMatrizAux, heightMatrizAux);
+
 
 		}
 		if(strcmp(nome,"fill")==0){
@@ -82,7 +76,7 @@ void outputOptions(FILE *arq){
 			point Points[2];
 			fscanf(arq,"%d %d %d %d\n",&Points[0].x,&Points[0].y,&Points[1].x,&Points[1].y);
 			
-            		makeLine(Points[0],Points[1],widthMatrizAux,heightMatrizAux,MatrizAux);
+            		makeLine(Points[0],Points[1],MatrizAux);
 					
 		}
 		if(strcmp(nome,"color")==0){
@@ -117,10 +111,10 @@ void outputOptions(FILE *arq){
 		    	makePolygon(lengthPoints,Points,widthMatrizAux,heightMatrizAux,MatrizAux);
 		}
 		if(strcmp(nome,"rect")==0){
-            		point P;
+            point P;
 			int heigth,width;
 			fscanf(arq,"%d %d %d %d\n",&P.x,&P.y,&heigth,&width);
-			//rect(P,heigth,width);
+			makeRect(P,heigth,width, MatrizAux);
 		}
 		if(strcmp(nome,"save")==0){
 			fscanf(arq,"%s\n",filename);

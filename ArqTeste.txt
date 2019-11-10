@@ -1,6 +1,10 @@
 image 500 500
 clear 255 255 0
 color 0 0 0
-line 0 0 100 100
-polygon 3 100 100 200 200 300 100 200
+rect 100 100 70 50
+line 100 100 150 50
+line 170 100 220 50
+line 150 50 220 50
+line 220 50 220 100
+line 170 150 220 100
 save reprovou.ppm

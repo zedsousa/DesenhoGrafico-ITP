@@ -10,7 +10,6 @@ typedef struct color{
 typedef struct point{
    int x;
    int y;
-   color Color;
 }point;
 
 typedef struct image{
