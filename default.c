@@ -73,3 +73,20 @@ void makePolygon(int n,point *P,int w,int h,color** C){
         }
     }while(aux!=(n-1));
 }
+
+void makeCircle(int x,int y,int r,color c,color **C){
+	while(1){
+		if(r==0) break;
+		else{
+			setPixel(x,y+r,c,C);
+			makeCircle(x-1,y-r,r-1,c,C);
+			setPixel(x-r,y,c,C);
+			makeCircle(x-r,y-1,r-1,c,C);
+			setPixel(x,y-r,c,C);
+			makeCircle(x+1,y+1,r-1,c,C);
+			setPixel(x+r,y,c,C);
+			makeCircle(x-1,y+1,r-1,c,C);
+			r--;
+		}
+	}
+}
