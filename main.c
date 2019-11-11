@@ -28,25 +28,7 @@ void le_arquivo(){
 }
 
 
-void gera_ppm(int x,int y, char *filename,color **c){
-    int width = x;
-	int height = y;
-    int i, j;	
-    
-    FILE *fp = fopen(filename, "wb");
-    
-    
-    fprintf(fp, "P3\n%d %d\n255\n", width, height);
-    
-    for (j = 0; j < width; ++j)
-    {
-        for (i = 0; i < height; ++i)
-        {
-			fprintf( fp, "%d %d %d\n", c[j][i].r, c[j][i].g, c[j][i].b);
-            }
-    }
-	fclose(fp);//Salva o arquivo
-}
+
 void outputOptions(FILE *arq){
 	char nome[10];
 	image Image;
@@ -63,14 +45,8 @@ void outputOptions(FILE *arq){
 			    widthMatrizAux=Image.x;//esta variavel serve pra poder liberar a memória fora deste IF
 			    heightMatrizAux=Image.y;    
 				
-				//alocação dinâmica da matrizAux
-			    MatrizAux = (color **) calloc (Image.x, sizeof(color *));
-			    if (MatrizAux == NULL) {
-				printf ("** Erro: Memoria Insuficiente **");
-			    }
-			    for ( i = 0; i < Image.x; i++ ) {
-				MatrizAux[i] = (color*) calloc (Image.y, sizeof(color));
-			    }
+				MatrizAux=makeImage(widthMatrizAux, heightMatrizAux);
+
 
 		}
 		if(strcmp(nome,"fill")==0){
@@ -82,7 +58,7 @@ void outputOptions(FILE *arq){
 			point Points[2];
 			fscanf(arq,"%d %d %d %d\n",&Points[0].x,&Points[0].y,&Points[1].x,&Points[1].y);
 			
-            		makeLine(Points[0],Points[1],widthMatrizAux,heightMatrizAux,MatrizAux);
+            		makeLine(Points[0],Points[1],MatrizAux);
 					
 		}
 		if(strcmp(nome,"color")==0){
@@ -117,16 +93,16 @@ void outputOptions(FILE *arq){
 		    	makePolygon(lengthPoints,Points,widthMatrizAux,heightMatrizAux,MatrizAux);
 		}
 		if(strcmp(nome,"rect")==0){
-            		point P;
+            point P;
 			int heigth,width;
 			fscanf(arq,"%d %d %d %d\n",&P.x,&P.y,&heigth,&width);
-			//rect(P,heigth,width);
+			makeRect(P,heigth,width, MatrizAux);
 		}
 		if(strcmp(nome,"save")==0){
 			fscanf(arq,"%s\n",filename);
-			//save(FILe *Arq);
+			saveImage(widthMatrizAux,heightMatrizAux, filename,MatrizAux);
 		}
-	}gera_ppm(widthMatrizAux,heightMatrizAux, filename,MatrizAux);
+	}
 	//libera a matriz da memória
 		    for (i=0; i<widthMatrizAux; i++) 
 				free (MatrizAux[i]);  
