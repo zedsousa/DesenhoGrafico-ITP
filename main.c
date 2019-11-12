@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 #include "structs.h"
 #include "default.h"
 
@@ -30,55 +31,46 @@ void le_arquivo(){
 
 
 void outputOptions(FILE *arq){
-	char nome[10];
+	char name[10];
 	image Image;
 	clear Clear;
 	char filename[30];
-	color **MatrizAux;
-	
-    int i,heightMatrizAux=0,widthMatrizAux=0;
+	color **MatrixAux;
+	color aux;
+  int i,heightMatrixAux=0,widthMatrixAux=0;
 	
 	while (!feof(arq)){
-		fscanf(arq,"%s",nome);
-		if(strcmp(nome,"image")==0){
-			    fscanf(arq,"%d %d \n",&Image.x,&Image.y);
-			    widthMatrizAux=Image.x;//esta variavel serve pra poder liberar a memória fora deste IF
-			    heightMatrizAux=Image.y;    
-				
-				MatrizAux=makeImage(widthMatrizAux, heightMatrizAux);
-
-
+		fscanf(arq,"%s",name);
+		if(strcmp(name,"image")==0){
+			fscanf(arq,"%d %d \n",&Image.x,&Image.y);
+			widthMatrixAux=Image.x;//esta variavel serve pra poder liberar a memória fora deste IF
+			heightMatrixAux=Image.y;    
+			MatrixAux=makeImage(widthMatrixAux, heightMatrixAux);
 		}
-		if(strcmp(nome,"fill")==0){
+		if(strcmp(name,"fill")==0){
 			point Point;
 			fscanf(arq,"%d %d \n",&Point.x,&Point.y);
 			//fill(Point);
 		}
-		if(strcmp(nome,"line")==0){
+		if(strcmp(name,"line")==0){
 			point Points[2];
 			fscanf(arq,"%d %d %d %d\n",&Points[0].x,&Points[0].y,&Points[1].x,&Points[1].y);
-			
-            		makeLine(Points[0],Points[1],MatrizAux);
-					
+      makeLine(Points[0],Points[1],MatrixAux);	
 		}
-		if(strcmp(nome,"color")==0){
-			color Color;
-			fscanf(arq,"%d %d %d\n",&Color.r,&Color.g,&Color.b);
-			//color(Color);
+		if(strcmp(name,"color")==0){
+			fscanf(arq,"%d %d %d\n",&aux.r,&aux.g,&aux.b);
 		}
-		if(strcmp(nome,"clear")==0){
+		if(strcmp(name,"clear")==0){
 			fscanf(arq,"%d %d %d\n",&Clear.Color.r,&Clear.Color.g,&Clear.Color.b);
-			//clear(Clear,widthMatrizAux,heightMatrizAux,MatrizAux);
-			cleanImage(Clear,widthMatrizAux,heightMatrizAux,MatrizAux);
-			
+			cleanImage(Clear,widthMatrixAux,heightMatrixAux,MatrixAux);
 		}
-		if(strcmp(nome,"circle")==0){
+		if(strcmp(name,"circle")==0){
 			point Point;
 			int radius;
 			fscanf(arq,"%d %d %d\n",&Point.x,&Point.y,&radius);
-			//circle(Point,radius);
+			makeCircle(Point.x,Point.y,radius,aux,MatrixAux);
 		}
-		if(strcmp(nome,"polygon")==0){
+		if(strcmp(name,"polygon")==0){
 			int i,j,lengthPoints;
 			fscanf(arq,"%d",&lengthPoints);
 			point Points[lengthPoints];			
@@ -90,21 +82,21 @@ void outputOptions(FILE *arq){
 					}					
 				}
 			}
-		    	makePolygon(lengthPoints,Points,widthMatrizAux,heightMatrizAux,MatrizAux);
+		  makePolygon(lengthPoints,Points,widthMatrixAux,heightMatrixAux,MatrixAux);
 		}
-		if(strcmp(nome,"rect")==0){
-            point P;
+		if(strcmp(name,"rect")==0){
+      point P;
 			int heigth,width;
 			fscanf(arq,"%d %d %d %d\n",&P.x,&P.y,&heigth,&width);
-			makeRect(P,heigth,width, MatrizAux);
+			makeRect(P,heigth,width, MatrixAux);
 		}
-		if(strcmp(nome,"save")==0){
+		if(strcmp(name,"save")==0){
 			fscanf(arq,"%s\n",filename);
-			saveImage(widthMatrizAux,heightMatrizAux, filename,MatrizAux);
+			saveImage(widthMatrixAux,heightMatrixAux, filename,MatrixAux);
 		}
 	}
 	//libera a matriz da memória
-		    for (i=0; i<widthMatrizAux; i++) 
-				free (MatrizAux[i]);  
-		    free (MatrizAux);  
+		    for (i=0; i<widthMatrixAux; i++) 
+				free (MatrixAux[i]);  
+		    free (MatrixAux);  
 }

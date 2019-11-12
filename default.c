@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <tgmath.h>
 #include "structs.h"
 #include "default.h"
 
@@ -76,20 +77,12 @@ void makePolygon(int n,point *P,int w,int h,color** C){
 
 
 void makeCircle(int x,int y,int r,color c,color **C){
-	while(1){
-		if(r==0) break;
-		else{
-			setPixel(x,y+r,c,C);
-			makeCircle(x-1,y-r,r-1,c,C);
-			setPixel(x-r,y,c,C);
-			makeCircle(x-r,y-1,r-1,c,C);
-			setPixel(x,y-r,c,C);
-			makeCircle(x+1,y+1,r-1,c,C);
-			setPixel(x+r,y,c,C);
-			makeCircle(x-1,y+1,r-1,c,C);
-			r--;
-		}
-	}
+	int i,newX,newY;
+    for(i=0;i<=360;i++){
+        newX = (r*cos(i)) + x;
+        newY = (r*sin(i)) + y;
+        setPixel(newX,newY,c,C);
+    }
 }
 
 
