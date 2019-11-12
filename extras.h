@@ -2,5 +2,5 @@
 #define EXTRAS_H
 
 //extra functions
-//as funcoes extras (que a gente não vai fazer agora)
+void negativo(int w,int h,color **C);
 #endif
