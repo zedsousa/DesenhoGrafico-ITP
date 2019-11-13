@@ -12,7 +12,7 @@ void makeLine(point a,point b,color **C);
 void makeCircle(int x,int y,int r,color c,color **C);
 void makePolygon(int n,point *P,int w,int h,color** C);
 void makeRect(point p,int width,int height, color** C);
-void fillForm(point P);
+void fillForm(int x, int y,color oldColor, color newColor, int width, int height, color** C);
 void saveImage(int x,int y, char *filename,color **c);
 
 #endif

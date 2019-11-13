@@ -140,3 +140,25 @@ void saveImage(int x,int y, char *filename,color **c){
 	fclose(fp);//Salva o arquivo
     
 }
+
+
+void fillForm(int x, int y,color oldColor, color newColor, int width, int height, color** C){
+    
+
+    if (x<0 || y<0 || x >= width || y >= height){
+        return;
+    }
+    
+   if(C[x][y].r != oldColor.r && C[x][y].g != oldColor.g && C[x][y].b != oldColor.b){
+       return;
+   }
+
+    fillForm(x+1,y, oldColor, newColor, width,height,C);
+    fillForm(x-1,y, oldColor, newColor, width,height,C);
+    fillForm(x,y+1, oldColor, newColor, width,height,C);
+    fillForm(x,y-1, oldColor, newColor, width,height,C);
+
+    
+
+} 
+

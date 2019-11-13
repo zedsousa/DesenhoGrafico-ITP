@@ -37,6 +37,7 @@ void outputOptions(FILE *arq){
 	char filename[30];
 	color **MatrixAux;
 	color aux;
+	color fill;
   int i,heightMatrixAux=0,widthMatrixAux=0;
 	
 	while (!feof(arq)){
@@ -49,8 +50,9 @@ void outputOptions(FILE *arq){
 		}
 		if(strcmp(name,"fill")==0){
 			point Point;
-			fscanf(arq,"%d %d \n",&Point.x,&Point.y);
-			//fill(Point);
+			fscanf(arq,"%d %d %d %d %d \n",&Point.x,&Point.y, &fill.r, &fill.g, &fill.b);
+			color oldColor = MatrixAux[Point.x][Point.y];
+			fillForm(Point.x,Point.y, oldColor, fill, widthMatrixAux, heightMatrixAux, MatrixAux);
 		}
 		if(strcmp(name,"line")==0){
 			point Points[2];
