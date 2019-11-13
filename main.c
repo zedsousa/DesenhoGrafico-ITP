@@ -38,14 +38,14 @@ void outputOptions(FILE *arq){
 	color **MatrixAux;
 	color aux;
 	color fill;
-  int i,heightMatrixAux=0,widthMatrixAux=0;
+   	int i,heightMatrixAux=0,widthMatrixAux=0;
 	
 	while (!feof(arq)){
 		fscanf(arq,"%s",name);
 		if(strcmp(name,"image")==0){
-			fscanf(arq,"%d %d \n",&Image.x,&Image.y);
-			widthMatrixAux=Image.x;//esta variavel serve pra poder liberar a memória fora deste IF
-			heightMatrixAux=Image.y;    
+			fscanf(arq,"%d %d \n",&Image.y,&Image.x);
+			widthMatrixAux=Image.y;//esta variavel serve pra poder liberar a memória fora deste IF
+			heightMatrixAux=Image.x;    
 			MatrixAux=makeImage(widthMatrixAux, heightMatrixAux);
 		}
 		if(strcmp(name,"fill")==0){
@@ -57,7 +57,7 @@ void outputOptions(FILE *arq){
 		if(strcmp(name,"line")==0){
 			point Points[2];
 			fscanf(arq,"%d %d %d %d\n",&Points[0].x,&Points[0].y,&Points[1].x,&Points[1].y);
-      makeLine(Points[0],Points[1],MatrixAux);	
+      makeLine(Points[0],Points[1],MatrixAux,widthMatrixAux, heightMatrixAux);	
 		}
 		if(strcmp(name,"color")==0){
 			fscanf(arq,"%d %d %d\n",&aux.r,&aux.g,&aux.b);
@@ -70,7 +70,7 @@ void outputOptions(FILE *arq){
 			point Point;
 			int radius;
 			fscanf(arq,"%d %d %d\n",&Point.x,&Point.y,&radius);
-			makeCircle(Point.x,Point.y,radius,aux,MatrixAux);
+			makeCircle(Point.x,Point.y,radius,aux,MatrixAux,widthMatrixAux, heightMatrixAux);
 		}
 		if(strcmp(name,"polygon")==0){
 			int i,j,lengthPoints;
@@ -90,7 +90,7 @@ void outputOptions(FILE *arq){
       point P;
 			int heigth,width;
 			fscanf(arq,"%d %d %d %d\n",&P.x,&P.y,&heigth,&width);
-			makeRect(P,heigth,width, MatrixAux);
+			makeRect(P,heigth,width, MatrixAux,widthMatrixAux, heightMatrixAux);
 		}
 		if(strcmp(name,"save")==0){
 			fscanf(arq,"%s\n",filename);

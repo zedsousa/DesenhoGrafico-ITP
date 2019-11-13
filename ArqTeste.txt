@@ -1,6 +1,6 @@
-image 500 500
-clear 255 255 0
+image 600 800
+clear 255 255 255
 color 0 0 0
-circle 400 200 50
-fill 0 100 255 0 0
-save circle.ppm
+circle 300 300 100
+fill 300 300
+save bolo.ppm
