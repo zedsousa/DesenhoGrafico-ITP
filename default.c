@@ -17,6 +17,7 @@ void cleanImage(clear Clear,int x,int y,color **C){
 }
 
 void setPixel(int x,int y,color Color,color **C){
+    
     C[y][x].r=Color.r;
     C[y][x].g=Color.g;
     C[y][x].b=Color.b;
@@ -144,19 +145,26 @@ void saveImage(int x,int y, char *filename,color **c){
 
 void fillForm(int x, int y,color oldColor, color newColor, int width, int height, color** C){
     
-
-    if (x<0 || y<0 || x >= width || y >= height){
+ if (x<0 || y<0 || x >= width || y >= height){
         return;
     }
     
-   if(C[x][y].r != oldColor.r && C[x][y].g != oldColor.g && C[x][y].b != oldColor.b){
+    
+   if(C[x][y].r != oldColor.r || C[x][y].g != oldColor.g || C[x][y].b != oldColor.b){
        return;
    }
-
-    fillForm(x+1,y, oldColor, newColor, width,height,C);
-    fillForm(x-1,y, oldColor, newColor, width,height,C);
-    fillForm(x,y+1, oldColor, newColor, width,height,C);
-    fillForm(x,y-1, oldColor, newColor, width,height,C);
+  
+    //printf("Newcolor: %d %d %d\n", newColor.r, newColor.g, newColor.b);
+    //printf("Oldcolor: %d %d %d\n", oldColor.r, oldColor.g, oldColor.b);
+    //printf("Width: %d \n", width);
+    ///printf("Height: %d \n", height);
+    //printf("C[%d][%d] = %d %d %d\n",x,y, C[x][y].r,C[x][y].g,C[x][y].b);
+    setPixel (x,y,newColor,C);
+    fillForm(x+1,y, oldColor,newColor,width,height,C);
+    fillForm(x,y+1, oldColor,newColor,width,height,C);
+    
+   
+   
 
     
 
