@@ -5,10 +5,15 @@
 #include "structs.h"
 
 color bilinearInterpolation(int x,int y,color **OriginalMatrix){
-	color resultColor;
-	int aux=0;
-	//vertical and horizontal interpolation
-	//diagonal interpolation
+	color resultColor; int aux;
+	//considering vertical, horizontal and diagonal interpolation
+	aux = (OriginalMatrix[x][y-1].r+OriginalMatrix[x-1][y].r+OriginalMatrix[x][y+1].r+OriginalMatrix[x+1][y].r+OriginalMatrix[x-1][y-1].r+OriginalMatrix[x-1][y+1].r+OriginalMatrix[x+1][y-1].r+OriginalMatrix[x+1][y].r+OriginalMatrix[x+1][y+1].r)/8;
+	resultColor.r = aux;
+	aux = (OriginalMatrix[x][y-1].g+OriginalMatrix[x-1][y].g+OriginalMatrix[x][y+1].g+OriginalMatrix[x+1][y].g+OriginalMatrix[x-1][y-1].g+OriginalMatrix[x-1][y+1].g+OriginalMatrix[x+1][y-1].g+OriginalMatrix[x+1][y].g+OriginalMatrix[x+1][y+1].g)/8;
+	resultColor.g = aux;
+	aux = (OriginalMatrix[x][y-1].b+OriginalMatrix[x-1][y].b+OriginalMatrix[x][y+1].b+OriginalMatrix[x+1][y].b+OriginalMatrix[x-1][y-1].b+OriginalMatrix[x-1][y+1].b+OriginalMatrix[x+1][y-1].b+OriginalMatrix[x+1][y].b+OriginalMatrix[x+1][y+1].b)/8;
+	resultColor.b = aux;
+	
 	return resultColor;
 }
 
@@ -91,43 +96,70 @@ void expand(int percentage,int width,int height,color **OriginalMatrix){
 	char filename[20];
 	strcpy(filename,"expandedImage.ppm");
 
-	//dinamic alocation for matrix ReducedImage
-	width = width*(1+(percentage/100));
+	//dinamic alocation for matrix ExpandedImage
+	width = width*percentage;
 	ExpandedImage = (color **) calloc (width, sizeof(color *));
 	if (ExpandedImage == NULL) {
 		printf ("** Erro: Memoria Insuficiente **");
 	}
 	for ( i = 0; i < width; i++ ) {
-		height = height*(1+(percentage/100));
+		height = height*percentage;
 		ExpandedImage[i] = (color*) calloc (height, sizeof(color));
 	}
+	/* (adapted) function below made by AndersonSMed
+	source: https://github.com/AndersonSMed/Aplicador-de-filtros-em-imagens-PPM/blob/master/funcoes.c
+	*/
+	void ampliar(int width,int height,color ***OriginalMatrix,color ***ExpandedImage, int zoom){
+		int i, j, k, l;
 
-	//function
+		width2 = width * zoom;
+		height2 = height * zoom;
+		
+		for(i = 0, k = 0; i < width && k < width2; k ++){
+			if(k % zoom == 0 && k != 0){
+				i++;
+			}
+				for(j = 0, l = 0; j < height && l < height2;  l++){
+					if(l % zoom == 0 && l != 0){
+						j++;
+					}
+					ExpandedImage[k][l].r = OriginalMatrix[i][j].r;
+					ExpandedImage[k][l].g = OriginalMatrix[i][j].b;
+					ExpandedImage[k][l].b = OriginalMatrix[i][j].g;
+				}
+		}
+	}
 
-	//reduced image's ppm file
+	//expanded image's ppm file
     gera_ppm(width,height,filename,ExpandedImage);
 
-	//free ReducedImage's memory 
+	//free ExpandedImage's memory 
 		    for (i=0; i<width; i++) 
 				free (ExpandedImage[i]);  
 		    free (ExpandedImage);
 }
 void reduce(int percentage,int width,int height,color **OriginalMatrix){
-	int i,j;
+	int i,j,k,l,width2,height2;
 	color **ReducedImage;
 	char filename[20];
 	strcpy(filename,"reducedImage.ppm");
+	width2 = width*percentage;
+	height2 = height*percentage;
 
 	//dinamic alocation for matrix ReducedImage
-	ReducedImage = (color **) calloc ((width*percentage), sizeof(color *));
+	ReducedImage = (color **) calloc (width2, sizeof(color *));
 	if (ReducedImage == NULL) {
 		printf ("** Erro: Memoria Insuficiente **");
 	}
 	for ( i = 0; i < width; i++ ) {
-		ReducedImage[i] = (color*) calloc (height*percentage, sizeof(color));
+		ReducedImage[i] = (color*) calloc (height2,sizeof(color));
 	}
 
-	//function
+	for(i=0,k=1;i<width2,k<(width+1);i++,k+2){
+		for(j=0,l=1;j<height2,l<=(height+1);j++,l+2){
+			ReducedImage[i][j] = bilinearInterpolation(k,l,OriginalMatrix);
+		}
+	}
 
 	//reduced image's ppm file
     gera_ppm(width,height,filename,ReducedImage);

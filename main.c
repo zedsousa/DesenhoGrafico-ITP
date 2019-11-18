@@ -110,6 +110,16 @@ void outputOptions(FILE *arq){
 			fscanf(arq,"%d\n",angle);
 			turn(angle,heightMatrixAux,widthMatrixAux,aux,MatrixAux);
 		}
+		if(strcmp(name,"expand")==0){
+			int percentage;
+			fscanf(arq,"%d\n",percentage);
+			expand(percentage,widthMatrixAux,heightMatrixAux,MatrixAux);
+		}
+		if(strcmp(name,"reduce")==0){
+			int percentage;
+			fscanf(arq,"%d\n",percentage);
+			reduce(percentage,widthMatrixAux,heightMatrixAux,MatrixAux);
+		}
 	}
 	//libera a matriz da memória
 		    for (i=0; i<widthMatrixAux; i++) 
