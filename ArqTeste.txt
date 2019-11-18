@@ -1,6 +1,9 @@
-image 600 800
+image 100 200
 clear 255 255 255
 color 0 0 0
-circle 300 300 100
-fill 300 300
-save bolo.ppm
+circle 50 50 50
+line 0 0 99 99
+negative
+threshold 100
+rotate 45
+save testefinal.ppm

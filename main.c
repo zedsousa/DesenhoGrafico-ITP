@@ -96,6 +96,20 @@ void outputOptions(FILE *arq){
 			fscanf(arq,"%s\n",filename);
 			saveImage(widthMatrixAux,heightMatrixAux, filename,MatrixAux);
 		}
+		//extras
+		if(strcmp(name,"negative")==0){
+			negative(widthMatrixAux,heightMatrixAux,MatrixAux);
+		}
+		if(strcmp(name,"threshold")==0){
+			int limit;
+			fscanf(arq,"%d\n",limit);
+			threshold(limit,heightMatrixAux,widthMatrixAux,MatrixAux);
+		}
+		if(strcmp(name,"rotate")==0){
+			int angle;
+			fscanf(arq,"%d\n",angle);
+			turn(angle,heightMatrixAux,widthMatrixAux,aux,MatrixAux);
+		}
 	}
 	//libera a matriz da memória
 		    for (i=0; i<widthMatrixAux; i++) 
