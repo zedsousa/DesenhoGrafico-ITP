@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "structs.h"
+#include "extras.h"
 #include "default.h"
 
 void le_arquivo();
@@ -57,7 +58,7 @@ void outputOptions(FILE *arq){
 		if(strcmp(name,"line")==0){
 			point Points[2];
 			fscanf(arq,"%d %d %d %d\n",&Points[0].x,&Points[0].y,&Points[1].x,&Points[1].y);
-      makeLine(Points[0],Points[1],MatrixAux,widthMatrixAux, heightMatrixAux);	
+      		makeLine(Points[0],Points[1],MatrixAux,widthMatrixAux, heightMatrixAux,aux);	
 		}
 		if(strcmp(name,"color")==0){
 			fscanf(arq,"%d %d %d\n",&aux.r,&aux.g,&aux.b);
@@ -84,13 +85,13 @@ void outputOptions(FILE *arq){
 					}					
 				}
 			}
-		  makePolygon(lengthPoints,Points,widthMatrixAux,heightMatrixAux,MatrixAux);
+		  makePolygon(lengthPoints,Points,widthMatrixAux,heightMatrixAux,MatrixAux,aux);
 		}
 		if(strcmp(name,"rect")==0){
-      point P;
+      		point P;
 			int heigth,width;
 			fscanf(arq,"%d %d %d %d\n",&P.x,&P.y,&heigth,&width);
-			makeRect(P,heigth,width, MatrixAux,widthMatrixAux, heightMatrixAux);
+			makeRect(P,heigth,width, MatrixAux,widthMatrixAux, heightMatrixAux,aux);
 		}
 		if(strcmp(name,"save")==0){
 			fscanf(arq,"%s\n",filename);
@@ -102,23 +103,21 @@ void outputOptions(FILE *arq){
 		}
 		if(strcmp(name,"threshold")==0){
 			int limit;
-			fscanf(arq,"%d\n",limit);
+			fscanf(arq,"%d\n",&limit);
 			threshold(limit,heightMatrixAux,widthMatrixAux,MatrixAux);
 		}
 		if(strcmp(name,"rotate")==0){
 			int angle;
-			fscanf(arq,"%d\n",angle);
+			fscanf(arq,"%d\n",&angle);
 			turn(angle,heightMatrixAux,widthMatrixAux,aux,MatrixAux);
 		}
 		if(strcmp(name,"expand")==0){
 			int percentage;
-			fscanf(arq,"%d\n",percentage);
+			fscanf(arq,"%d\n",&percentage);
 			expand(percentage,widthMatrixAux,heightMatrixAux,MatrixAux);
 		}
 		if(strcmp(name,"reduce")==0){
-			int percentage;
-			fscanf(arq,"%d\n",percentage);
-			reduce(percentage,widthMatrixAux,heightMatrixAux,MatrixAux);
+			reduce(widthMatrixAux,heightMatrixAux,MatrixAux);
 		}
 	}
 	//libera a matriz da memória

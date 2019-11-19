@@ -25,7 +25,7 @@ void setPixel(int x,int y,color Color,color **C,int w,int h){
 }
 
 //(adapted) function line made by rosettacode.org
-void makeLine(point a,point b,color** C,int w,int h) {
+void makeLine(point a,point b,color** C,int w,int h,color c) {
     int x0, y0,x1, y1;
     x0=a.x;y0=a.y;x1=b.x;y1=b.y;
     int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
@@ -34,13 +34,7 @@ void makeLine(point a,point b,color** C,int w,int h) {
     
  
     for(;;){ 
-        
-        color Color;
-        Color.r = 0;
-        Color.g = 0;
-        Color.b = 0;
-      
-        setPixel(x0,y0,Color,C,w,h);
+        setPixel(x0,y0,c,C,w,h);
         
         if (x0==x1 && y0==y1) break;
         e2 = err;
@@ -55,7 +49,7 @@ void makeLine(point a,point b,color** C,int w,int h) {
     }
 }
 
-void makePolygon(int n,point *P,int w,int h,color** C){
+void makePolygon(int n,point *P,int w,int h,color** C,color c){
     point auxP1,auxP2;
     int i,j,aux;
     aux=0;//esse aux vai percorrer o vetor P (tipo point)
@@ -64,13 +58,13 @@ void makePolygon(int n,point *P,int w,int h,color** C){
         auxP1=P[aux];
         auxP2=P[aux+1];
 
-        makeLine(auxP1,auxP2,C,w,h);
+        makeLine(auxP1,auxP2,C,w,h,c);
         aux++;
 
         if(aux==(n-1)){//se o aux chegar ao penúltimo valor do vetor
             auxP1=P[0];
             auxP2=P[n-1];
-            makeLine(auxP1,auxP2,C,w,h);
+            makeLine(auxP1,auxP2,C,w,h,c);
             break;
         }
     }while(aux!=(n-1));
@@ -87,7 +81,7 @@ void makeCircle(int x,int y,int r,color c,color **C,int w,int h){
 }
 
 
-void makeRect(point a,int width,int height, color** C,int w,int h){
+void makeRect(point a,int width,int height, color** C,int w,int h,color c){
     int i;
     point Points[4];
 
@@ -100,9 +94,9 @@ void makeRect(point a,int width,int height, color** C,int w,int h){
     Points[3].y = a.y+height;
     for(i=0;i<4;i++){
         if (i!=3)
-            makeLine(Points[i],Points[i+1],C,w,h);
+            makeLine(Points[i],Points[i+1],C,w,h,c);
         else
-            makeLine(Points[3],Points[0],C,w,h);
+            makeLine(Points[3],Points[0],C,w,h,c);
     }
 }
 

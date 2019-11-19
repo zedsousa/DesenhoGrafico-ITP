@@ -1,9 +1,7 @@
 image 100 200
-clear 255 255 255
+clear 200 255 255
 color 0 0 0
-circle 50 50 50
 line 0 0 99 99
-negative
-threshold 100
-rotate 45
-save testefinal.ppm
+circle 50 50 50
+rotate 50
+save zero.ppm
