@@ -141,8 +141,8 @@ void reduce(int width,int height,color **OriginalMatrix){
 	for(i = 0, k = 1; i < width2 && k < width; i++, k += 2){
 		for(j = 0, l = 1; j < height2 && l < height; j++, l += 2){
 			ReducedImage[i][j].r = (OriginalMatrix[k - 1][l - 1].r + OriginalMatrix[k - 1][l].r + OriginalMatrix[k][l - 1].r + OriginalMatrix[k][l].r) / 4;
-			ReducedImage[i][j].r = (OriginalMatrix[k - 1][l - 1].g + OriginalMatrix[k - 1][l].g + OriginalMatrix[k][l - 1].g + OriginalMatrix[k][l].g) / 4;
-			ReducedImage[i][j].r = (OriginalMatrix[k - 1][l - 1].b + OriginalMatrix[k - 1][l].b + OriginalMatrix[k][l - 1].b + OriginalMatrix[k][l].b) / 4;
+			ReducedImage[i][j].g = (OriginalMatrix[k - 1][l - 1].g + OriginalMatrix[k - 1][l].g + OriginalMatrix[k][l - 1].g + OriginalMatrix[k][l].g) / 4;
+			ReducedImage[i][j].b = (OriginalMatrix[k - 1][l - 1].b + OriginalMatrix[k - 1][l].b + OriginalMatrix[k][l - 1].b + OriginalMatrix[k][l].b) / 4;
 		}
 	}
 
@@ -196,4 +196,53 @@ void turn(int angle,int height,int width,color Color,color **OriginalMatrix){
 		    for (i=0; i<width; i++) 
 				free (RotatedImage[i]);  
 		    free (RotatedImage);
+}
+
+void makePolygon3D(int n,point *P,int w,int h,color** C,color c){
+      point auxP1,auxP2, P2;
+    int i,j,aux;
+    aux=0;//esse aux vai percorrer o vetor P (tipo point)
+    
+    do{
+        auxP1=P[aux];
+        auxP2=P[aux+1];
+
+        makeLine(auxP1,auxP2,C,w,h,c);
+        aux++;
+
+        if(aux==(n-1)){//se o aux chegar ao penúltimo valor do vetor
+            auxP1=P[0];
+            auxP2=P[n-1];
+            makeLine(auxP1,auxP2,C,w,h,c);
+            break;
+        }
+    }while(aux!=(n-1));
+    
+    for(i=0;i<n;i++){
+        auxP1=P[i];
+        auxP2.x=auxP1.x+10;
+        auxP2.y=auxP1.y-10;
+        P[i].x+=10;
+        P[i].y-=10;
+        makeLine(auxP1,auxP2,C,w,h,c);
+    }
+
+    aux=0;//esse aux vai percorrer o vetor P (tipo point)
+    
+    do{
+        auxP1=P[aux];
+        auxP2=P[aux+1];
+
+        makeLine(auxP1,auxP2,C,w,h,c);
+        aux++;
+
+        if(aux==(n-1)){//se o aux chegar ao penúltimo valor do vetor
+            auxP1=P[0];
+            auxP2=P[n-1];
+            makeLine(auxP1,auxP2,C,w,h,c);
+            break;
+        }
+    }while(aux!=(n-1));
+
+
 }

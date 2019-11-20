@@ -1,7 +1,7 @@
 image 100 200
-clear 200 255 255
-color 0 0 0
-line 0 0 99 99
-circle 50 50 50
-rotate 50
-save zero.ppm
+clear 255 255 255
+color 0 255 0
+polygon3D 5 10 90 30 50 5 50 75 0 75 75 
+fill 50 50 
+negative
+save dois.ppm

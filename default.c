@@ -143,13 +143,13 @@ void fillForm(int x, int y,color oldColor, color newColor, int width, int height
         return;
     }
     
-   if(C[x][y].r != oldColor.r && C[x][y].g != oldColor.g && C[x][y].b != oldColor.b){
+   if(C[x][y].r != oldColor.r || C[x][y].g != oldColor.g || C[x][y].b != oldColor.b){
        return;
    }
-    setPixel(x,y,newColor,C,width,height);
-    if(x+1<height)fillForm(x+1,y, oldColor, newColor, width,height,C);
-    if(y+1<width)fillForm(x,y+1, oldColor, newColor, width,height,C);
-    if(x-1>=0)fillForm(x-1,y, oldColor, newColor, width,height,C);
-    if(y-1>=0)fillForm(x,y-1, oldColor, newColor, width,height,C);
+    C[x][y]=newColor;
+    fillForm(x+1,y, oldColor,newColor,width,height,C);
+    fillForm(x-1,y, oldColor,newColor,width,height,C);
+    fillForm(x,y+1, oldColor,newColor,width,height,C);
+    fillForm(x,y-1, oldColor,newColor,width,height,C);
 } 
 

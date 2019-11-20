@@ -53,7 +53,7 @@ void outputOptions(FILE *arq){
 			point Point;
 			fscanf(arq,"%d %d %d %d %d \n",&Point.x,&Point.y, &fill.r, &fill.g, &fill.b);
 			color oldColor = MatrixAux[Point.x][Point.y];
-			fillForm(Point.x,Point.y, oldColor, fill, widthMatrixAux, heightMatrixAux, MatrixAux);
+			fillForm(Point.x,Point.y, oldColor, aux, widthMatrixAux, heightMatrixAux, MatrixAux);
 		}
 		if(strcmp(name,"line")==0){
 			point Points[2];
@@ -119,6 +119,21 @@ void outputOptions(FILE *arq){
 		if(strcmp(name,"reduce")==0){
 			reduce(widthMatrixAux,heightMatrixAux,MatrixAux);
 		}
+		if(strcmp(name,"polygon3D")==0){
+			int i,j,lengthPoints;
+			fscanf(arq,"%d",&lengthPoints);
+			point Points[lengthPoints];			
+			for(i=0;i<(2*lengthPoints);i++){
+				for(j=0;j<lengthPoints;j++){
+					if(i%2==0){
+						fscanf(arq,"%d %d",&Points[j].x,&Points[j].y);
+						if(i==((2*lengthPoints)-2)) fscanf(arq,"%d %d\n",&Points[j].x,&Points[j].y);
+					}					
+				}
+			}
+		  	makePolygon3D(lengthPoints,Points,widthMatrixAux,heightMatrixAux,MatrixAux,aux);
+		}
+		
 	}
 	//libera a matriz da memória
 		    for (i=0; i<widthMatrixAux; i++) 
