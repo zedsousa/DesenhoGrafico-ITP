@@ -159,14 +159,71 @@ void fillForm(int x, int y,color oldColor, color newColor, int width, int height
     //printf("Width: %d \n", width);
     ///printf("Height: %d \n", height);
     //printf("C[%d][%d] = %d %d %d\n",x,y, C[x][y].r,C[x][y].g,C[x][y].b);
-    setPixel (x,y,newColor,C);
-    fillForm(x+1,y, oldColor,newColor,width,height,C);
+    //setPixel (x+1,y,newColor,C);
+     //setPixel (x-1,y,newColor,C);
+      //setPixel (x,y+1,newColor,C);
+     //  setPixel (x,y-1,newColor,C);
+       printf("b\n");
+
+         setPixel (x,y,newColor,C);
+       fillForm(x+1,y, oldColor,newColor,width,height,C);
+    // fillForm(x-1,y, oldColor,newColor,width,height,C);
     fillForm(x,y+1, oldColor,newColor,width,height,C);
+   // fillForm(x,y-1, oldColor,newColor,width,height,C);
     
-   
+ 
    
 
     
 
 } 
+
+void makePolygon3D(int n,point *P,int w,int h,color** C){
+      point auxP1,auxP2, P2;
+    int i,j,aux;
+    aux=0;//esse aux vai percorrer o vetor P (tipo point)
+    
+    do{
+        auxP1=P[aux];
+        auxP2=P[aux+1];
+
+        makeLine(auxP1,auxP2,C);
+        aux++;
+
+        if(aux==(n-1)){//se o aux chegar ao penúltimo valor do vetor
+            auxP1=P[0];
+            auxP2=P[n-1];
+            makeLine(auxP1,auxP2,C);
+            break;
+        }
+    }while(aux!=(n-1));
+    
+    for(i=0;i<n;i++){
+        auxP1=P[i];
+        auxP2.x=auxP1.x+10;
+        auxP2.y=auxP1.y-10;
+        P[i].x+=10;
+        P[i].y-=10;
+        makeLine(auxP1,auxP2,C);
+    }
+
+    aux=0;//esse aux vai percorrer o vetor P (tipo point)
+    
+    do{
+        auxP1=P[aux];
+        auxP2=P[aux+1];
+
+        makeLine(auxP1,auxP2,C);
+        aux++;
+
+        if(aux==(n-1)){//se o aux chegar ao penúltimo valor do vetor
+            auxP1=P[0];
+            auxP2=P[n-1];
+            makeLine(auxP1,auxP2,C);
+            break;
+        }
+    }while(aux!=(n-1));
+
+
+}
 

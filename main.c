@@ -86,6 +86,20 @@ void outputOptions(FILE *arq){
 			}
 		  makePolygon(lengthPoints,Points,widthMatrixAux,heightMatrixAux,MatrixAux);
 		}
+		if(strcmp(name,"polygon3D")==0){
+			int i,j,lengthPoints;
+			fscanf(arq,"%d",&lengthPoints);
+			point Points[lengthPoints];			
+			for(i=0;i<(2*lengthPoints);i++){
+				for(j=0;j<lengthPoints;j++){
+					if(i%2==0){
+						fscanf(arq,"%d %d",&Points[j].x,&Points[j].y);
+						if(i==((2*lengthPoints)-2)) fscanf(arq,"%d %d\n",&Points[j].x,&Points[j].y);
+					}					
+				}
+			}
+		  makePolygon3D(lengthPoints,Points,widthMatrixAux,heightMatrixAux,MatrixAux);
+		}
 		if(strcmp(name,"rect")==0){
       point P;
 			int heigth,width;
