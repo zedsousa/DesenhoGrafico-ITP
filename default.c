@@ -157,19 +157,18 @@ void fillForm(int x, int y,color oldColor, color newColor, int width, int height
     //printf("Newcolor: %d %d %d\n", newColor.r, newColor.g, newColor.b);
     //printf("Oldcolor: %d %d %d\n", oldColor.r, oldColor.g, oldColor.b);
     //printf("Width: %d \n", width);
-    ///printf("Height: %d \n", height);
+    //printf("Height: %d \n", height);
     //printf("C[%d][%d] = %d %d %d\n",x,y, C[x][y].r,C[x][y].g,C[x][y].b);
     //setPixel (x+1,y,newColor,C);
      //setPixel (x-1,y,newColor,C);
       //setPixel (x,y+1,newColor,C);
      //  setPixel (x,y-1,newColor,C);
-       printf("b\n");
-
-         setPixel (x,y,newColor,C);
-       fillForm(x+1,y, oldColor,newColor,width,height,C);
-    // fillForm(x-1,y, oldColor,newColor,width,height,C);
+    //printf("b\n");
+   C[x][y]=newColor;
+    fillForm(x+1,y, oldColor,newColor,width,height,C);
+    fillForm(x-1,y, oldColor,newColor,width,height,C);
     fillForm(x,y+1, oldColor,newColor,width,height,C);
-   // fillForm(x,y-1, oldColor,newColor,width,height,C);
+    fillForm(x,y-1, oldColor,newColor,width,height,C);
     
  
    
