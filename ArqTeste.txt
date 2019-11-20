@@ -1,6 +1,6 @@
-image 100 100
+image 500 600
 clear 255 255 0
 color 0 0 0
-polygon3D 4 20 20 50 20 50 50 20 50
-fill 70 70
+polygon 4 20 20 50 20 50 50 20 50
+fill 35 35
 save pizza.ppm
