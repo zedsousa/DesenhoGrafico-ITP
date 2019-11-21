@@ -24,7 +24,7 @@ Funções extras:
 Como compilar:
 No terminal, dentro da pasta do projeto execute os seguintes comandos:
 
-> make all  
+> make all  </br>
 > ./main
 
 
