@@ -4,22 +4,22 @@ Alunos: Brenda Alexandra e José de Sousa.
 
 
 ## Funções básicas  
-  ..*makeLine(Brenda)  
-  ..*makePolygon(Brenda)  
-  ..*makeCircle(Brenda)  
-  ..*makeRect(José)  
-  ..*fillForm(José)  
+  ⋅⋅*makeLine(Brenda)  
+  ⋅⋅*makePolygon(Brenda)  
+  ⋅⋅*makeCircle(Brenda)  
+  ⋅⋅*makeRect(José)  
+  ⋅⋅*fillForm(José)  
   
-  ..*makeImage(Brenda)
-  ..*cleanImage(José)
-  ..*colorImage(José)
-  ..*saveImage(José)
+  ⋅⋅*makeImage(Brenda)
+  ⋅⋅*cleanImage(José)
+  ⋅⋅*colorImage(José)
+  ⋅⋅*saveImage(José)
   
 ## Funções extras  
- ..*negative(Brenda)  
- ..*threshold(Brenda)  
- ..*reduce(Brenda)  
- ..*makePolygon3D(José)  
+ ⋅⋅*negative(Brenda)  
+ ⋅⋅*threshold(Brenda)  
+ ⋅⋅*reduce(Brenda)  
+ ⋅⋅*makePolygon3D(José)  
  
 ## Como compilar  
 No terminal, dentro da pasta do projeto execute os seguintes comandos:  
