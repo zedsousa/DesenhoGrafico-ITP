@@ -49,7 +49,7 @@ void outputOptions(FILE *arq){
 		}
 		if(strcmp(name,"fill")==0){
 			point Point;
-			fscanf(arq,"%d %d %d %d %d \n",&Point.x,&Point.y, &fill.r, &fill.g, &fill.b);
+			fscanf(arq,"%d %d %d %d %d \n",&Point.x,&Point.y);
 			color oldColor = MatrixAux[Point.x][Point.y];
 			fillForm(Point.x,Point.y, oldColor, aux, widthMatrixAux, heightMatrixAux, MatrixAux);
 		}
