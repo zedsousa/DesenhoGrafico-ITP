@@ -1,9 +1,7 @@
-#ifndef DEFAULT_H
-#define DEFAULT_H
+#ifndef FUNCOES_BASICAS_H
+#define FUNCOES_BASICAS_H
 #include "structs.h"
 
-//default functions
-//são funções considerando as opções do exemplo lá 
 color **makeImage(int width, int height);
 void cleanImage(clear Clear,int x,int y,color **C);
 void colorImage(color C);

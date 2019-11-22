@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include "structs.h"
-#include "extras.h"
-#include "default.h"
+#include "funcoes_extras.h"
+#include "funcoes_basicas.h"
 
 void le_arquivo();
 void gera_ppm();
@@ -29,8 +29,6 @@ void le_arquivo(){
 	fclose(arq);
 }
 
-
-
 void outputOptions(FILE *arq){
 	char name[10];
 	image Image;
@@ -45,7 +43,7 @@ void outputOptions(FILE *arq){
 		fscanf(arq,"%s",name);
 		if(strcmp(name,"image")==0){
 			fscanf(arq,"%d %d \n",&Image.y,&Image.x);
-			widthMatrixAux=Image.y;//esta variavel serve pra poder liberar a memória fora deste IF
+			widthMatrixAux=Image.y;
 			heightMatrixAux=Image.x;    
 			MatrixAux=makeImage(widthMatrixAux, heightMatrixAux);
 		}
@@ -105,16 +103,6 @@ void outputOptions(FILE *arq){
 			int limit;
 			fscanf(arq,"%d\n",&limit);
 			threshold(limit,heightMatrixAux,widthMatrixAux,MatrixAux);
-		}
-		if(strcmp(name,"rotate")==0){
-			int angle;
-			fscanf(arq,"%d\n",&angle);
-			turn(angle,heightMatrixAux,widthMatrixAux,aux,MatrixAux);
-		}
-		if(strcmp(name,"expand")==0){
-			int percentage;
-			fscanf(arq,"%d\n",&percentage);
-			expand(percentage,widthMatrixAux,heightMatrixAux,MatrixAux);
 		}
 		if(strcmp(name,"reduce")==0){
 			reduce(widthMatrixAux,heightMatrixAux,MatrixAux);

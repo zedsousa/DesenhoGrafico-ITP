@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "default.h"
+#include "funcoes_basicas.h"
 #include "structs.h"
-#include "extras.h"
+#include "funcoes_extras.h"
 
 void negative(int width,int height,color **OriginalMatrix){
     int i,j,aux=0;
@@ -79,48 +79,6 @@ void threshold(int limit,int height,int width,color **OriginalMatrix){
 		    free (ThresholdImage);
 }
 
-void expand(int percentage,int width,int height,color **OriginalMatrix){
-	int i,j,k,l,width2,height2;
-	color **ExpandedImage;
-	char filename[20];
-	strcpy(filename,"expandedImage.ppm");
-
-	//dinamic alocation for matrix ExpandedImage
-	width2 = width + (width * percentage/100);
-	height2 = height + (height * percentage/100);
-	ExpandedImage = (color **) calloc (width2, sizeof(color *));
-	if (ExpandedImage == NULL) {
-		printf ("** Erro: Memoria Insuficiente **");
-	}
-	for ( i = 0; i < width2; i++ ) {
-		ExpandedImage[i] = (color*) calloc (height2, sizeof(color));
-	}
-	/* (adapted) for function below made by AndersonSMed
-	source: https://github.com/AndersonSMed/Aplicador-de-filtros-em-imagens-PPM/blob/master/funcoes.c
-	*/
-	for(i = 0, k = 0; i < width && k < width2; k++){
-		if(k % percentage  == 0 && k != 0){
-			i++;
-		}
-		for(j = 0, l = 0; j < height && l < height2;  l++){
-			if(l % percentage  == 0 && l != 0){
-				j++;
-			}
-			ExpandedImage[k][l].r = OriginalMatrix[i][j].r;
-			ExpandedImage[k][l].g = OriginalMatrix[i][j].g;
-			ExpandedImage[k][l].b = OriginalMatrix[i][j].b;
-		}
-	}
-	
-	//expanded image's ppm file
-    saveImage(width,height,filename,ExpandedImage);
-
-	//free ExpandedImage's memory 
-		    for (i=0; i<width2; i++) 
-				free (ExpandedImage[i]);  
-		    free (ExpandedImage);
-}
-
 void reduce(int width,int height,color **OriginalMatrix){
 	int i,j,k,l,width2,height2;
 	color **ReducedImage;
@@ -153,49 +111,6 @@ void reduce(int width,int height,color **OriginalMatrix){
 		    for (i=0; i<width2; i++) 
 				free (ReducedImage[i]);  
 		    free (ReducedImage);
-}
-void turn(int angle,int height,int width,color Color,color **OriginalMatrix){
-	int i,j,newX,newY;
-	color **RotatedImage;
-	char filename[20];
-	int angle1;
-	strcpy(filename,"rotatedImage.ppm");
-	//dinamic alocation for matrix RotatedImage
-	RotatedImage = (color **) calloc (width, sizeof(color *));
-	if (RotatedImage == NULL) {
-		printf ("** Erro: Memoria Insuficiente **");
-	}
-	for ( i = 0; i < width; i++ ) {
-		RotatedImage[i] = (color*) calloc (height, sizeof(color));
-	}
-	for(int x=0;x<width;x++){
-		for(int y=0;y<height;y++){
-			int hwidth = width / 2;
-			int hheight = height / 2;
-			
-			int xt = x - hwidth;
-			int yt = y - hheight;
-			
-			double sinma = sin(-angle);
-			double cosma = cos(-angle);
-			
-			int xs = (int)round((cosma * xt - sinma * yt) + hwidth);
-			int ys = (int)round((sinma * xt + cosma * yt) + hheight);
-			int k = xs,l=ys;
-			if(xs >= 0 && xs < width && ys >= 0 && ys < height) {
-				RotatedImage[i][j].r = (OriginalMatrix[k - 1][l - 1].r + OriginalMatrix[k - 1][l].r + OriginalMatrix[k][l - 1].r + OriginalMatrix[k][l].r) / 4;
-				RotatedImage[i][j].r = (OriginalMatrix[k - 1][l - 1].g + OriginalMatrix[k - 1][l].g + OriginalMatrix[k][l - 1].g + OriginalMatrix[k][l].g) / 4;
-				RotatedImage[i][j].r = (OriginalMatrix[k - 1][l - 1].b + OriginalMatrix[k - 1][l].b + OriginalMatrix[k][l - 1].b + OriginalMatrix[k][l].b) / 4;
-			}
-		}
-	}
-	//RotatedImage's ppm file
-    saveImage(width,height,filename,RotatedImage);
-
-	//free RotatedImage's memory 
-		    for (i=0; i<width; i++) 
-				free (RotatedImage[i]);  
-		    free (RotatedImage);
 }
 
 void makePolygon3D(int n,point *P,int w,int h,color** C,color c){
