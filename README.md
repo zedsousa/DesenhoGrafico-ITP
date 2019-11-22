@@ -39,7 +39,7 @@ Alunos: Brenda Alexandra e José de Sousa.
   - reduce: uma string "reduce";
   - makePolygon3D: uma string "makePolygon3D" seguido de um valor N (quantidade de pontos do polígono) e as N coordenadas (x,y) do polígono.
   
-  Observação: todos os valores inseridos devem ser números inteiros.
+  Observação: todos os valores inseridos devem ser números inteiros e uma coordenada (x,y) é inserida como 2 valores x e y separados.
 ## Como compilar  
 No terminal, dentro da pasta do projeto execute os seguintes comandos:  
 
