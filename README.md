@@ -16,10 +16,10 @@ Alunos: Brenda Alexandra e José de Sousa.
   - saveImage (José)  
   
 ## Funções extras  
- - negative (Brenda)  
- - threshold (Brenda)  
- - reduce (Brenda)  
- - makePolygon3D (José)  
+ - negative (Brenda): gera uma imagem negativa da imagem original;  
+ - threshold (Brenda): gera uma imagem (com valores 0 ou 255) de acordo com o limiar inserido;   
+ - reduce (Brenda): gera uma imagem reduzida em 50% da imagem original;  
+ - makePolygon3D (José): gera um polígono 3D com profundidade de 10 pixels.  
  
 ## Como inserir valores no arquivo .txt
   Funções básicas:
