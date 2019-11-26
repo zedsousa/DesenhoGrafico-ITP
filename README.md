@@ -21,6 +21,7 @@ Alunos: Brenda Alexandra e José de Sousa.
  - reduce (Brenda): gera uma imagem reduzida em 50% da imagem original;  
  - makePolygon3D (José): gera um polígono 3D com profundidade de 10 pixels.  
  
+    O que seria feito diferente: 1) A função reduce seria alterada para reduzir para qualquer comprimento x largura; 2) A função makePolygon3D seria alterar para receber a profundidade (em pixels) na linha de comando do arquivo TXT.
 ## Como inserir valores no arquivo .txt
   Funções básicas:
   - makeLine: uma string "line" seguido de 2 coordenadas (x,y); 
@@ -39,12 +40,13 @@ Alunos: Brenda Alexandra e José de Sousa.
   - reduce: uma string "reduce";
   - makePolygon3D: uma string "makePolygon3D" seguido de um valor N (quantidade de pontos do polígono) e as N coordenadas (x,y) do polígono.
   
-  Observação: todos os valores inseridos devem ser números inteiros e uma coordenada (x,y) é inserida como 2 valores x e y separados.
+  Observações: Todos os valores inseridos devem ser números inteiros e uma coordenada (x,y) é inserida como 2 valores x e y separados.
 ## Como compilar  
 No terminal, dentro da pasta do projeto execute os seguintes comandos:  
 
 > make all  
 > ./main
+  Observação: nenhuma biblioteca externa foi utilizada. 
 
 
 
